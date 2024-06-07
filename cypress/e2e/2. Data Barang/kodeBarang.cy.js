@@ -55,6 +55,7 @@ context('Sidebar', () => {
                 cy.wrap(location.href).should("contain", "kode/create")
             })
             cy.get('#kode_barang').type('3050102004');
+            cy.get('#satuan').select('Buah');
             cy.get('#deskripsi_barang').type('Mesin Kas Register');
             cy.get('.btn.btn-primary.btn-sm').click();
             cy.location().then((location) => {
@@ -64,12 +65,9 @@ context('Sidebar', () => {
         })
 
         it('Verify if the system will save the data that user have filled in edit page', () => {
-            cy.get('#table_kode').contains('a', 'Edit').click();
-            cy.location().then((location) => {
-                cy.wrap(location.href).should("contain", "kode/1/edit")
-            })
-            cy.get('#kode_barang').clear().type('3050104001');
-            cy.get('#deskripsi_barang').clear().type('Lemari Besi / Metal (Edited)');
+            cy.get('table').find('tr').contains('td', 'Mesin Kas Register').parent().contains('Edit').click();
+            cy.get('#kode_barang').clear().type('3050102004');
+            cy.get('#deskripsi_barang').clear().type('Mesin Kas Register (Edited)');
             cy.get('.btn.btn-primary.btn-sm').click();
             cy.location().then((location) => {
                 cy.wrap(location.href).should("contain", "kode")
@@ -78,7 +76,7 @@ context('Sidebar', () => {
         })
 
         it('Verify if the system can delete the data after user clicked the "Hapus" button', () => {
-            cy.get('.btn.btn-danger.btn-sm').eq(2).click();
+            cy.get('table').find('tr').contains('td', 'Mesin Kas Register (Edited)').parent().contains('Hapus').click();
             cy.get('.alert.alert-success').should('exist');
         })
     })

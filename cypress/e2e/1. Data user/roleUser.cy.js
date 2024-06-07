@@ -13,12 +13,12 @@ context('Sidebar', () => {
           cy.contains('a.nav-link', 'Role User').click();
           cy.get('table').find('tr').should('have.length.gt', 2)
         })
-        // it('Verify if user can use search function', () =>{
-        //   cy.contains('li.nav-item', 'Data User').click();
-        //   cy.contains('a.nav-link', 'Role User').click();
-        //   cy.get('input[type="search"]').type('Admin');
-        //   cy.get('table').find('tr').should('contain', 'Admin')
-        // })
+        it('Verify if user can use search function', () =>{
+          cy.contains('li.nav-item', 'Data User').click();
+          cy.contains('a.nav-link', 'Role User').click();
+          cy.get('#table_role_filter > label > .form-control').type('Admin');
+          cy.get('table').find('tr').should('contain', 'Admin')
+        })
         it('Verify if user will be redirected to add page after clicking add button', () => {
           cy.contains('li.nav-item', 'Data User').click();
           cy.contains('a.nav-link', 'Role User').click();
